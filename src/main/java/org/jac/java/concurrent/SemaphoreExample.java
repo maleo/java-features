@@ -7,29 +7,29 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreExample {
 	
 	public static void main(String[] args) {
-        // Ïß³Ì³Ø
+        // çº¿ç¨‹æ± 
         ExecutorService exec = Executors.newCachedThreadPool();
-        // Ö»ÄÜ5¸öÏß³ÌÍ¬Ê±·ÃÎÊ
+        // åªèƒ½5ä¸ªçº¿ç¨‹åŒæ—¶è®¿é—®
         final Semaphore semp = new Semaphore(5);
-        // Ä£Äâ20¸ö¿Í»§¶Ë·ÃÎÊ
+        // æ¨¡æ‹Ÿ20ä¸ªå®¢æˆ·ç«¯è®¿é—®
         for (int index = 1; index <= 20; index++) {
             final int NO = index;
             exec.execute(() -> {
             	try {
-            		// »ñÈ¡Ğí¿É
+            		// è·å–è®¸å¯
             		semp.acquire();
             		System.out.println("Accessing: " + NO);
             		Thread.sleep((long) (Math.random() * 6000));
-            		// ·ÃÎÊÍêºó£¬ÊÍ·Å
+            		// è®¿é—®å®Œåï¼Œé‡Šæ”¾
             		semp.release();
-            		//availablePermits()Ö¸µÄÊÇµ±Ç°ĞÅºÅµÆ¿âÖĞÓĞ¶àÉÙ¸ö¿ÉÒÔ±»Ê¹ÓÃ
+            		//availablePermits()æŒ‡çš„æ˜¯å½“å‰ä¿¡å·ç¯åº“ä¸­æœ‰å¤šå°‘ä¸ªå¯ä»¥è¢«ä½¿ç”¨
             		System.out.println("------ Avalable: " + semp.availablePermits()); 
             	} catch (InterruptedException e) {
             		e.printStackTrace();
             	}
             });
         }
-        // ÍË³öÏß³Ì³Ø
+        // é€€å‡ºçº¿ç¨‹æ± 
         exec.shutdown();
     }
 }
