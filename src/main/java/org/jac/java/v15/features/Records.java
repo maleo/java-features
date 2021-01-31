@@ -1,5 +1,8 @@
 package org.jac.java.v15.features;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
 /**
  * A record class is a shallowly immutable, transparent carrier for a fixed set of values, called the record components.
  * The Java™ language provides concise syntax for declaring record classes, whereby the record components are declared
@@ -21,12 +24,20 @@ public class Records {
         //Invoking self-defined instance method
         System.out.println(p2.toJson());
         System.out.println(p1.toJson());
+
+        //Introspection
+        //1. java.lang.class.isRecord method;
+        System.out.println("p1.getClass().isRecord(): " + p1.getClass().isRecord());
+        System.out.println("Record components:");
+        //2. java.lang.class.getRecordComponents()
+        Arrays.asList(Point.class.getRecordComponents()).forEach(System.out::println);
     }
 }
 
-record Point(int x, int y) {
+record Point(int x, int y) implements Serializable {
     //You can't define instance field in record
     //int z;
+
 
     //You can define instance method in record
     public String toJson() {
